@@ -742,8 +742,8 @@
 
   <!-- SAĞ ALT MÜZİK ÇALAR WIDGET -->
   <div class="music-widget">
-    <!-- ORİJİNAL MÜZİK BAĞLANTISI -->
-    <audio id="audio-player" src="https://grieving-jade-yhztcx8u.edgeone.dev/" preload="metadata" loop></audio>
+    <!-- DOSYA ADI 'Müzik 1' OLABİLECEĞİ VEYA UZANTILI OLABİLECEĞİ İÇİN KONTROLLÜ YÜKLEME -->
+    <audio id="audio-player" src="Müzik 1.mp3" preload="metadata" loop></audio>
 
     <div class="music-info">
       <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&q=80" alt="Album Art" class="music-thumb">
@@ -819,8 +819,17 @@
     const introOverlay = document.getElementById('intro-overlay');
     const enterBtn = document.getElementById('enter-btn');
 
-    const nakaratSaniyesi = 48; // 48. saniyeden başlama ayarı
+    const nakaratSaniyesi = 48; // Nakarat saniyesi (48. saniye)
     let targetVolume = 0.3;
+
+    // Dosya adının 'Müzik 1' veya 'Müzik 1.mp3' olma durumuna karşı yedek kontrol
+    audio.addEventListener('error', function() {
+      if (audio.src.includes('M%C3%BCzik%201.mp3') || audio.src.includes('Müzik 1.mp3')) {
+        audio.src = 'Müzik 1';
+      } else if (audio.src.includes('Müzik 1')) {
+        audio.src = 'Müzik%201.mp3';
+      }
+    });
 
     function formatTime(seconds) {
       if (isNaN(seconds)) return "0:00";
