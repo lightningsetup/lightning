@@ -11,7 +11,7 @@ Worp tarzından ilham alan, modern, koyu temalı (dark mode) ve mobil uyumlu ki�
 
 ## 🚀 Özellikler
 
-* **Modern Worp Arayüzü:** Minimalist ve şık koyu tema tasarımı.
+* **Modern Arayüz:** Minimalist ve şık koyu tema tasarımı.
 * **Ekipman & Arka Plan Listeleri:** Sahip olduğum oyuncu ekipmanlarının ve masa düzeni bileşenlerinin detaylı listesi.
 * **Ürün Vitrini:** En popüler donanımların fiyat ve görsel kartları.
 * **Özel Müzik Çalar Widget'ı:** 
