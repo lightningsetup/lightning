@@ -56,33 +56,42 @@
       }
     }
 
-    /* --- HAVALI GİRİŞ EKRANI & TİTREME (GLITCH/SHAKE) EFEKTİ --- */
+    /* --- BULUTLANMA & GEÇİŞ EFEKTLİ GİRİŞ EKRANI (INTRO OVERLAY) --- */
     .intro-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #080808;
+      background-color: rgba(8, 8, 8, 0.95);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
       z-index: 99999;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                  visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  backdrop-filter 1.2s ease,
+                  transform 1.2s ease;
     }
+
     .intro-overlay.fade-out {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      transform: scale(1.05);
     }
 
     .bg-glow-1, .bg-glow-2 {
       position: absolute;
-      width: 350px;
-      height: 350px;
+      width: 380px;
+      height: 380px;
       border-radius: 50%;
-      filter: blur(80px);
+      filter: blur(90px);
       opacity: 0.35;
       animation: floatGlow 8s infinite alternate ease-in-out;
       z-index: 1;
@@ -104,7 +113,7 @@
       100% { transform: translateY(-40px) scale(1.15); }
     }
 
-    /* Load ekranı hafif titreme efekti */
+    /* Load ekranı hafif titreme & bulutlu görünüm */
     .intro-content {
       position: relative;
       z-index: 2;
@@ -115,6 +124,12 @@
       gap: 16px;
       padding: 20px;
       animation: subtleShake 3s infinite ease-in-out;
+      transition: transform 1s ease, opacity 0.8s ease;
+    }
+
+    .intro-overlay.fade-out .intro-content {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
     }
 
     @keyframes subtleShake {
@@ -199,7 +214,7 @@
     .banner-container {
       position: relative;
       width: 100%;
-      height: 200px;
+      height: 220px;
       background-color: #111;
     }
 
@@ -207,6 +222,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
     }
 
     .profile-section {
@@ -547,7 +563,7 @@
 </head>
 <body>
 
-  <!-- HAREKETLİ VE TİTREMELİ GİRİŞ EKRANI -->
+  <!-- HAREKETLİ VE BULUTLANMA EFEKTLİ GİRİŞ EKRANI -->
   <div id="intro-overlay" class="intro-overlay">
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
@@ -567,7 +583,7 @@
     <!-- Profil & Banner Kartı -->
     <header class="header-card">
       <div class="banner-container">
-        <img src="https://worp.me/_next/image?url=https%3A%2F%2Frzyo9pndd3.ufs.sh%2Ff%2FYolgqO8JPyVSjfdibmE8VAYqtFWiNQlBx6TRoMKm2sXZyDeG&w=1080&q=75" alt="Setup Banner" class="banner" loading="lazy">
+        <img src="https://i.redd.it/zevcb0355ht81.jpg" alt="Setup Banner" class="banner" loading="lazy">
       </div>
       <div class="profile-section">
         <div class="profile-flex">
