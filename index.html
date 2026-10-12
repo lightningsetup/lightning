@@ -283,33 +283,35 @@
       transform: translateY(-1px);
     }
 
-    /* --- SAĞ ALT MÜZİK ÇALAR WIDGET STİLLERİ --- */
+    /* --- SAĞ ALT MÜZİK ÇALAR WIDGET STİLLERİ (DÜZELTİLDİ) --- */
     .music-widget {
       position: fixed;
       bottom: 20px;
       right: 20px;
       background-color: #1e1e1e;
       border: 1px solid #2a2a2a;
-      border-radius: 14px;
-      padding: 12px;
-      width: 280px;
+      border-radius: 16px;
+      padding: 14px;
+      width: 300px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.6);
       z-index: 9999;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      overflow: hidden;
     }
     .music-info {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
     .music-thumb {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       object-fit: cover;
       background-color: #333;
+      flex-shrink: 0;
     }
     .music-details {
       display: flex;
@@ -317,7 +319,7 @@
       overflow: hidden;
     }
     .music-title {
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 700;
       color: #fff;
       white-space: nowrap;
@@ -325,8 +327,9 @@
       text-overflow: ellipsis;
     }
     .music-artist {
-      font-size: 11px;
+      font-size: 11.5px;
       color: #9ca3af;
+      margin-top: 2px;
     }
     .music-progress-container {
       display: flex;
@@ -336,17 +339,22 @@
     .music-time {
       font-size: 10px;
       color: #9ca3af;
-      min-width: 28px;
+      min-width: 26px;
       text-align: center;
     }
     .progress-bar, .volume-bar {
-      flex: 1;
       height: 4px;
       background-color: #333;
       border-radius: 2px;
       outline: none;
       appearance: none;
       cursor: pointer;
+    }
+    .progress-bar {
+      flex: 1;
+    }
+    .volume-bar {
+      width: 60px;
     }
     .progress-bar::-webkit-slider-thumb, .volume-bar::-webkit-slider-thumb {
       appearance: none;
@@ -360,11 +368,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 2px;
+      width: 100%;
     }
     .music-controls {
       display: flex;
-      justify-content: center;
       align-items: center;
       gap: 12px;
     }
@@ -374,7 +381,6 @@
       gap: 6px;
       color: #9ca3af;
       font-size: 12px;
-      width: 90px;
     }
     .ctrl-btn {
       background: none;
@@ -388,8 +394,8 @@
       color: #3b82f6;
     }
     .play-btn {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       background-color: #fff;
       color: #121212;
       border-radius: 50%;
@@ -553,14 +559,13 @@
 
   <!-- SAĞ ALT MÜZİK ÇALAR WIDGET -->
   <div class="music-widget">
-    <!-- loop özelliği eklendi -->
     <audio id="audio-player" src="https://grieving-jade-yhztcx8u.edgeone.dev/" preload="metadata" loop></audio>
 
     <div class="music-info">
       <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&q=80" alt="Album Art" class="music-thumb">
       <div class="music-details">
         <div class="music-title">Her Mevsim Yazım</div>
-        <div class="music-artist">Zeynep Bastık[cite: 1]</div>
+        <div class="music-artist">Zeynep Bastık</div>
       </div>
     </div>
 
@@ -577,9 +582,9 @@
         <button class="ctrl-btn" id="forward-btn" title="5 Saniye İleri"><i class="fas fa-forward-step"></i></button>
       </div>
 
-      <!-- SES KONTROLÜ (Volume Slider) -->
+      <!-- SES KONTROLÜ (Düzeltilmiş Düzen) -->
       <div class="volume-container">
-        <i class="fas fa-volume-high" id="volume-icon"></i>
+        <i class="fas fa-volume-low" id="volume-icon"></i>
         <input type="range" id="volume-bar" class="volume-bar" value="30" min="0" max="100" step="1">
       </div>
     </div>
@@ -598,10 +603,10 @@
     const volumeBar = document.getElementById('volume-bar');
     const volumeIcon = document.getElementById('volume-icon');
 
-    // En popüler/en iyi kısmın saniyesini buradan değiştirebilirsin (Örn: 35 saniye)
-    const nakaratSaniyesi = 0; 
+    // Nakarat / Popüler kısım başlangıcı (48. Saniye)
+    const nakaratSaniyesi = 48; 
 
-    // Başlangıç ses seviyesini %30 yapma
+    // %30 Başlangıç Ses Seviyesi
     audio.volume = 0.3;
 
     function formatTime(seconds) {
@@ -613,14 +618,14 @@
 
     audio.addEventListener('loadedmetadata', () => {
       durationEl.textContent = formatTime(audio.duration);
-      // Şarkı yüklendiğinde otomatik olarak en iyi/popüler kısımdan başlasın istiyorsan:
-      if(nakaratSaniyesi > 0) {
-        audio.currentTime = nakaratSaniyesi;
-      }
     });
 
     playPauseBtn.addEventListener('click', () => {
       if (audio.paused) {
+        // İlk kez başlatılıyorsa doğrudan nakarat/en popüler kısma sar
+        if (audio.currentTime < 1 && nakaratSaniyesi > 0) {
+          audio.currentTime = nakaratSaniyesi;
+        }
         audio.play().catch(error => {
           console.log("Oynatma hatası:", error);
         });
@@ -646,7 +651,7 @@
       }
     });
 
-    // Ses Açma / Kapatma (Volume Slider)
+    // Ses Seviyesi Kontrolü
     volumeBar.addEventListener('input', () => {
       audio.volume = volumeBar.value / 100;
       if (audio.volume === 0) {
@@ -665,8 +670,6 @@
     forwardBtn.addEventListener('click', () => {
       audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
     });
-
-    // Loop açık olduğu için şarkı bittiğinde başa saracak, ikonun oynamasına gerek yok ama loop çalışmaya devam edecek.
   </script>
 
 </body>
