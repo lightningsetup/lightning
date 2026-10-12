@@ -283,7 +283,7 @@
       transform: translateY(-1px);
     }
 
-    /* --- SAĞ ALT MÜZİK ÇALAR WIDGET STİLLERİ (DÜZELTİLDİ) --- */
+    /* --- SAĞ ALT MÜZİK ÇALAR WIDGET STİLLERİ --- */
     .music-widget {
       position: fixed;
       bottom: 20px;
@@ -550,7 +550,7 @@
 
     <!-- Alt Bilgilendirme -->
     <footer class="footer-badge">
-      <a href="https://github.com/lightningsetup/setup" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-github"></i> Powered by GitHub Pages
       </a>
     </footer>
@@ -582,7 +582,7 @@
         <button class="ctrl-btn" id="forward-btn" title="5 Saniye İleri"><i class="fas fa-forward-step"></i></button>
       </div>
 
-      <!-- SES KONTROLÜ (Düzeltilmiş Düzen) -->
+      <!-- SES KONTROLÜ -->
       <div class="volume-container">
         <i class="fas fa-volume-low" id="volume-icon"></i>
         <input type="range" id="volume-bar" class="volume-bar" value="30" min="0" max="100" step="1">
@@ -603,9 +603,8 @@
     const volumeBar = document.getElementById('volume-bar');
     const volumeIcon = document.getElementById('volume-icon');
 
-    // Nakarat / Popüler kısım başlangıcı (48. Saniye)
+    // Nakarat başlangıç saniyesi (48. saniye)
     const nakaratSaniyesi = 48; 
-
     // %30 Başlangıç Ses Seviyesi
     audio.volume = 0.3;
 
@@ -622,7 +621,6 @@
 
     playPauseBtn.addEventListener('click', () => {
       if (audio.paused) {
-        // İlk kez başlatılıyorsa doğrudan nakarat/en popüler kısma sar
         if (audio.currentTime < 1 && nakaratSaniyesi > 0) {
           audio.currentTime = nakaratSaniyesi;
         }
@@ -669,6 +667,28 @@
 
     forwardBtn.addEventListener('click', () => {
       audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+    });
+
+    // Sitede 1 saniye durduktan sonra otomatik başlatmayı dene (Tarayıcı engellerse ilk tıklamada çalışır)
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (audio.currentTime < 1 && nakaratSaniyesi > 0) {
+          audio.currentTime = nakaratSaniyesi;
+        }
+        audio.play().then(() => {
+          playIcon.classList.replace('fa-play', 'fa-pause');
+        }).catch(error => {
+          console.log("Tarayıcı otomatik oynatmayı engelledi, ilk etkileşimde başlayacak.");
+          document.addEventListener('click', function startOnFirstClick() {
+            if (audio.paused) {
+              audio.play().then(() => {
+                playIcon.classList.replace('fa-play', 'fa-pause');
+                document.removeEventListener('click', startOnFirstClick);
+              });
+            }
+          }, { once: true });
+        });
+      }, 1000);
     });
   </script>
 
