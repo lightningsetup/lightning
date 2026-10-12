@@ -209,6 +209,7 @@
       flex-direction: column;
       gap: 20px;
       z-index: 2;
+      padding-bottom: 90px; /* Müzik widget'ı mobilde altta kalmasın diye boşluk */
     }
 
     /* Header & Banner Card (Glassmorphism) */
@@ -461,33 +462,42 @@
       transform: translateY(-1px);
     }
 
-    /* --- SAĞ ALT MÜZİK ÇALAR WIDGET STİLLERİ --- */
+    /* --- SAĞ ALT MÜZİK ÇALAR WIDGET STİLLERİ (MOBİL VE PC UYUMLU) --- */
     .music-widget {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(22, 22, 26, 0.88);
+      bottom: 15px;
+      right: 15px;
+      background: rgba(22, 22, 26, 0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 16px;
-      padding: 14px;
-      width: 300px;
+      padding: 12px;
+      width: 290px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.6);
       z-index: 999;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       overflow: hidden;
     }
+
+    @media (max-width: 480px) {
+      .music-widget {
+        left: 15px;
+        right: 15px;
+        width: auto;
+      }
+    }
+
     .music-info {
       display: flex;
       align-items: center;
       gap: 12px;
     }
     .music-thumb {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 10px;
       object-fit: cover;
       background-color: #333;
@@ -530,7 +540,7 @@
       appearance: none;
     }
     .progress-bar { flex: 1; }
-    .volume-bar { width: 60px; }
+    .volume-bar { width: 55px; }
     .progress-bar::-webkit-slider-thumb, .volume-bar::-webkit-slider-thumb {
       appearance: none;
       width: 10px;
@@ -740,10 +750,9 @@
 
   </div>
 
-  <!-- SAĞ ALT MÜZİK ÇALAR WIDGET -->
+  <!-- SAĞ ALT MÜZİK ÇALAR WIDGET (YÜKLEDİĞİN 7.5MB'LIK DOSYA BAĞLANDI) -->
   <div class="music-widget">
-    <!-- DOSYA ADI 'Müzik 1' OLABİLECEĞİ VEYA UZANTILI OLABİLECEĞİ İÇİN KONTROLLÜ YÜKLEME -->
-    <audio id="audio-player" src="Müzik 1.mp3" preload="metadata" loop></audio>
+    <audio id="audio-player" src="mp3indirdur-Zeynep-Bastik-Her-Mevsim-Yazim.mp3" preload="metadata" loop></audio>
 
     <div class="music-info">
       <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&q=80" alt="Album Art" class="music-thumb">
@@ -821,15 +830,6 @@
 
     const nakaratSaniyesi = 48; // Nakarat saniyesi (48. saniye)
     let targetVolume = 0.3;
-
-    // Dosya adının 'Müzik 1' veya 'Müzik 1.mp3' olma durumuna karşı yedek kontrol
-    audio.addEventListener('error', function() {
-      if (audio.src.includes('M%C3%BCzik%201.mp3') || audio.src.includes('Müzik 1.mp3')) {
-        audio.src = 'Müzik 1';
-      } else if (audio.src.includes('Müzik 1')) {
-        audio.src = 'Müzik%201.mp3';
-      }
-    });
 
     function formatTime(seconds) {
       if (isNaN(seconds)) return "0:00";
