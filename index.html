@@ -26,6 +26,80 @@
       position: relative;
     }
 
+    /* --- HAVALI GİRİŞ EKRANI (OVERLAY) --- */
+    .intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0b0b0b;
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .intro-overlay.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .intro-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      animation: fadeInUp 0.8s ease;
+    }
+    .intro-badge {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      color: #9ca3af;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .intro-content h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .intro-content p {
+      font-size: 13.5px;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+    .enter-btn {
+      background: #ffffff;
+      color: #121212;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+    }
+    .enter-btn:hover {
+      transform: translateY(-2px);
+      background-color: #f3f4f6;
+      box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .container {
       width: 100%;
       max-width: 800px;
@@ -294,7 +368,7 @@
       padding: 14px;
       width: 300px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      z-index: 9999;
+      z-index: 999;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -414,6 +488,18 @@
 </head>
 <body>
 
+  <!-- HAVALI GİRİŞ EKRANI -->
+  <div id="intro-overlay" class="intro-overlay">
+    <div class="intro-content">
+      <div class="intro-badge">LIGHTNING SETUP</div>
+      <h1>Yolculuğa Hazır mısın?</h1>
+      <p>Müzik eşliğinde setup vitrinine giriş yap</p>
+      <button id="enter-btn" class="enter-btn">
+        <span>Devam Et</span> <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
   <div class="container">
     
     <!-- Profil & Banner Kartı -->
@@ -464,7 +550,7 @@
           </a>
           <a href="https://www.logitechg.com/tr-tr/shop/p/g733-rgb-wireless-headset" target="_blank" rel="noopener noreferrer" class="item-row">
             <div class="icon-box">
-              <img src="https://worp.me/_next/image?url=https%3A%2F%2Frzyo9pndd3.ufs.sh%2Ff%2FYolgqO8JPyVSUPcGwHnzhDB8afXLuyqvrdePRNExoYOnFi5I&w=48&q=75" alt="G733" loading="lazy">
+              <img src="https://worp.me/_next/image?url=https%3A%2F%2Ft2.gstatic.com%2FfaviconV2%3Fclient%3DSOCIAL%26type%3DFAVICON%26fallback_opts%3DTYPE%2CSIZE%2CURL%26url%3Dhttps%253A%252F%252Fwww.logitechg.com%252Ftr-tr%252Fshop%252Fp%252Fg733-rgb-wireless-headset%26size%3D96&w=64&q=75" alt="G733" loading="lazy">
             </div>
             <div class="item-text">G733 Ultra Hafif, Kablosuz Oyun Kulaklığı</div>
           </a>
@@ -590,7 +676,7 @@
     </div>
   </div>
 
-  <!-- MÜZİK ÇALAR İŞLEVSELLİK SCRIPTI -->
+  <!-- MÜZİK ÇALAR VE GİRİŞ EKRANI SCRIPTI -->
   <script>
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('play-pause-btn');
@@ -602,6 +688,8 @@
     const forwardBtn = document.getElementById('forward-btn');
     const volumeBar = document.getElementById('volume-bar');
     const volumeIcon = document.getElementById('volume-icon');
+    const introOverlay = document.getElementById('intro-overlay');
+    const enterBtn = document.getElementById('enter-btn');
 
     // Nakarat başlangıç saniyesi (48. saniye)
     const nakaratSaniyesi = 48; 
@@ -617,6 +705,19 @@
 
     audio.addEventListener('loadedmetadata', () => {
       durationEl.textContent = formatTime(audio.duration);
+    });
+
+    // "Devam Et" butonuna basıldığında giriş ekranını kaldır ve müziği başlat
+    enterBtn.addEventListener('click', () => {
+      introOverlay.classList.add('fade-out');
+      
+      // Şarkıyı nakaratından başlat ve oynat
+      audio.currentTime = nakaratSaniyesi;
+      audio.play().then(() => {
+        playIcon.classList.replace('fa-play', 'fa-pause');
+      }).catch(error => {
+        console.log("Oynatma hatası:", error);
+      });
     });
 
     playPauseBtn.addEventListener('click', () => {
@@ -667,28 +768,6 @@
 
     forwardBtn.addEventListener('click', () => {
       audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
-    });
-
-    // Sitede 1 saniye durduktan sonra otomatik başlatmayı dene (Tarayıcı engellerse ilk tıklamada çalışır)
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        if (audio.currentTime < 1 && nakaratSaniyesi > 0) {
-          audio.currentTime = nakaratSaniyesi;
-        }
-        audio.play().then(() => {
-          playIcon.classList.replace('fa-play', 'fa-pause');
-        }).catch(error => {
-          console.log("Tarayıcı otomatik oynatmayı engelledi, ilk etkileşimde başlayacak.");
-          document.addEventListener('click', function startOnFirstClick() {
-            if (audio.paused) {
-              audio.play().then(() => {
-                playIcon.classList.replace('fa-play', 'fa-pause');
-                document.removeEventListener('click', startOnFirstClick);
-              });
-            }
-          }, { once: true });
-        });
-      }, 1000);
     });
   </script>
 
