@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup & Ekipmanlarım</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    /* Header Card */
+    .header-card {
+      background-color: #1e1e1e;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+    }
+    .banner {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background-color: #333;
+    }
+    .profile-info {
+      padding: 20px;
+      position: relative;
+      margin-top: -50px;
+    }
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      border: 4px solid #1e1e1e;
+      background-color: #000;
+      object-fit: cover;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .subtitle {
+      color: #a0a0a0;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    /* Lists Box */
+    .list-box {
+      background-color: #1e1e1e;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #2a2a2a;
+    }
+    .list-box h3 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-align: center;
+      color: #e0e0e0;
+    }
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .item-row {
+      background-color: #262626;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* Product Cards */
+    .product-card {
+      background-color: #1e1e1e;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      border: 1px solid #2a2a2a;
+      height: 140px;
+    }
+    .product-details {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .product-price {
+      font-size: 13px;
+      color: #888;
+    }
+    .product-image {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      background-color: #ffffff;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Profil Header -->
+    <div class="header-card">
+      <img src="https://via.placeholder.com/800x200" alt="Banner" class="banner">
+      <div class="profile-info">
+        <img src="https://via.placeholder.com/80" alt="Avatar" class="avatar">
+        <div class="title">Sizin Kullanıcı Adınız</div>
+        <div class="subtitle">Best Setup 2026</div>
+      </div>
+    </div>
+
+    <!-- Ekipman Listeleri -->
+    <div class="grid-2">
+      <div class="list-box">
+        <h3>Ekipmanlar</h3>
+        <div class="item-list">
+          <div class="item-row">⌨️ Razer BlackWidow V4 X</div>
+          <div class="item-row">⌨️ Wraith W75 V2 Klavye</div>
+          <div class="item-row">🖱️ ATK Dragonfly A9 Mouse</div>
+          <div class="item-row">🎧 G733 Wireless Kulaklık</div>
+        </div>
+      </div>
+
+      <div class="list-box">
+        <h3>Arka Plandakiler</h3>
+        <div class="item-list">
+          <div class="item-row">🔌 HM Lab Z-Neo USB Hub</div>
+          <div class="item-row">🔌 Wraith Çift Yönlü Kablo</div>
+          <div class="item-row">🖥️ NB Ergonomic NB F80</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ürün Kartları -->
+    <div class="grid-2">
+      <div class="product-card">
+        <div class="product-details">
+          <div class="product-name">ATK Dragonfly A9 Wireless Mouse</div>
+          <div class="product-price">3,899 TRY</div>
+        </div>
+        <img src="https://via.placeholder.com/140" alt="Mouse" class="product-image">
+      </div>
+
+      <div class="product-card">
+        <div class="product-details">
+          <div class="product-name">Wraith W75 V2 Klavye</div>
+          <div class="product-price">4,299 TRY</div>
+        </div>
+        <img src="https://via.placeholder.com/140" alt="Klavye" class="product-image">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
