@@ -24,9 +24,34 @@
       padding: 30px 15px;
       min-height: 100vh;
       position: relative;
+      overflow-x: hidden;
     }
 
-    /* --- HAREKETLİ VE CANLI GİRİŞ EKRANI (INTRO OVERLAY) --- */
+    /* --- SAKURA YAPRAKLARI EFEKTİ (MOUSE TRAIL) --- */
+    .sakura-leaf {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999999;
+      width: 14px;
+      height: 14px;
+      background: radial-gradient(circle, #ffb7c5 0%, #ff69b4 100%);
+      border-radius: 12px 1px 12px 1px;
+      opacity: 0.9;
+      animation: fallAndFade 1.2s linear forwards;
+    }
+
+    @keyframes fallAndFade {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate(var(--drift-x), var(--drift-y)) rotate(360deg) scale(0.3);
+        opacity: 0;
+      }
+    }
+
+    /* --- HAVALI GİRİŞ EKRANI & TİTREME (GLITCH/SHAKE) EFEKTİ --- */
     .intro-overlay {
       position: fixed;
       top: 0;
@@ -34,7 +59,7 @@
       width: 100%;
       height: 100%;
       background-color: #080808;
-      z-index: 999999;
+      z-index: 99999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -47,7 +72,6 @@
       pointer-events: none;
     }
 
-    /* Arka Planda Hareketli Neon Işıklar (Ambient Glows) */
     .bg-glow-1, .bg-glow-2 {
       position: absolute;
       width: 350px;
@@ -75,6 +99,7 @@
       100% { transform: translateY(-40px) scale(1.15); }
     }
 
+    /* Load ekranı titreme efekti */
     .intro-content {
       position: relative;
       z-index: 2;
@@ -84,7 +109,15 @@
       align-items: center;
       gap: 16px;
       padding: 20px;
-      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: subtleShake 3s infinite ease-in-out;
+    }
+
+    @keyframes subtleShake {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-1.5px, 1px); }
+      40% { transform: translate(1px, -1.5px); }
+      60% { transform: translate(-1px, 0.5px); }
+      80% { transform: translate(1.5px, -1px); }
     }
 
     .intro-badge {
@@ -128,21 +161,17 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 25px rgba(255, 255, 255, 0.25);
     }
-    .enter-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
-      background: #ffffff;
-    }
-    .enter-btn i {
-      transition: transform 0.3s ease;
-    }
-    .enter-btn:hover i {
-      transform: translateX(4px);
-    }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* --- MOUSE YAKLAŞTIĞINDA BÜYÜME (HOVER ZOOM) EFEKTLERİ --- */
+    .enter-btn:hover, 
+    .product-card:hover, 
+    .item-row:hover, 
+    .list-box:hover, 
+    .header-card:hover, 
+    .action-btn:hover {
+      transform: scale(1.035) translateY(-2px) !important;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
 
     .container {
@@ -160,6 +189,7 @@
       overflow: hidden;
       border: 1px solid #2a2a2a;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
     }
     
     .banner-container {
@@ -216,11 +246,6 @@
       transition: all 0.2s ease;
     }
 
-    .action-btn:hover {
-      background-color: #333;
-      transform: translateY(-2px);
-    }
-
     .title {
       font-size: 22px;
       font-weight: 700;
@@ -253,6 +278,7 @@
       border-radius: 16px;
       padding: 16px;
       border: 1px solid #2a2a2a;
+      transition: all 0.3s ease;
     }
 
     .list-box h3 {
@@ -290,13 +316,6 @@
       border: 1px solid transparent;
     }
 
-    .item-row:hover {
-      background-color: #2c2c2c;
-      border-color: #3a3a3a;
-      transform: translateX(2px);
-    }
-
-    /* Worp Beyaz İkon Kutusu */
     .icon-box {
       width: 44px;
       height: 44px;
@@ -332,13 +351,7 @@
       height: 130px;
       text-decoration: none;
       color: inherit;
-      transition: all 0.2s ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-3px);
-      border-color: #444;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
     }
 
     .product-details {
@@ -469,12 +482,8 @@
       appearance: none;
       cursor: pointer;
     }
-    .progress-bar {
-      flex: 1;
-    }
-    .volume-bar {
-      width: 60px;
-    }
+    .progress-bar { flex: 1; }
+    .volume-bar { width: 60px; }
     .progress-bar::-webkit-slider-thumb, .volume-bar::-webkit-slider-thumb {
       appearance: none;
       width: 10px;
@@ -509,9 +518,7 @@
       cursor: pointer;
       transition: color 0.2s;
     }
-    .ctrl-btn:hover {
-      color: #3b82f6;
-    }
+    .ctrl-btn:hover { color: #3b82f6; }
     .play-btn {
       width: 32px;
       height: 32px;
@@ -526,14 +533,12 @@
       border: none;
       transition: transform 0.1s;
     }
-    .play-btn:hover {
-      transform: scale(1.05);
-    }
+    .play-btn:hover { transform: scale(1.05); }
   </style>
 </head>
 <body>
 
-  <!-- HAREKETLİ VE CANLI GİRİŞ EKRANI -->
+  <!-- HAREKETLİ VE TİTREMELİ GİRİŞ EKRANI -->
   <div id="intro-overlay" class="intro-overlay">
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
@@ -724,8 +729,39 @@
     </div>
   </div>
 
-  <!-- MÜZİK ÇALAR VE FADE-IN SCRIPTI -->
+  <!-- SAKURA YAPRAKLARI & MÜZİK SCRİPTİ -->
   <script>
+    // --- 1. SAKURA YAPRAKLARI MOUSE TRAIL ---
+    let lastLeafTime = 0;
+    document.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if (now - lastLeafTime > 60) { // Yaprak sıklığı süresi (ms)
+        lastLeafTime = now;
+        createSakuraLeaf(e.clientX, e.clientY);
+      }
+    });
+
+    function createSakuraLeaf(x, y) {
+      const leaf = document.createElement('div');
+      leaf.className = 'sakura-leaf';
+      
+      // Rastgele yaprak boyutu ve süzülme yönü
+      const driftX = (Math.random() - 0.5) * 80 + 'px';
+      const driftY = (Math.random() * 50 + 40) + 'px';
+      
+      leaf.style.left = (x - 7) + 'px';
+      leaf.style.top = (y - 7) + 'px';
+      leaf.style.setProperty('--drift-x', driftX);
+      leaf.style.setProperty('--drift-y', driftY);
+
+      document.body.appendChild(leaf);
+
+      setTimeout(() => {
+        leaf.remove();
+      }, 1200);
+    }
+
+    // --- 2. MÜZİK VE FADE-IN KONTROLÜ ---
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('play-pause-btn');
     const playIcon = document.getElementById('play-icon');
@@ -740,7 +776,7 @@
     const enterBtn = document.getElementById('enter-btn');
 
     const nakaratSaniyesi = 48; 
-    let targetVolume = 0.3; // Hedef ses seviyesi (%30)
+    let targetVolume = 0.3;
 
     function formatTime(seconds) {
       if (isNaN(seconds)) return "0:00";
@@ -753,7 +789,7 @@
       durationEl.textContent = formatTime(audio.duration);
     });
 
-    // "Devam Et" butonuna basıldığında: Giriş ekranını kapat ve müziği yavaşça artır (Fade-In)
+    // Devam Et Butonuna Basıldığında Fade-In ile Açılma
     enterBtn.addEventListener('click', () => {
       introOverlay.classList.add('fade-out');
       
@@ -761,7 +797,6 @@
         audio.currentTime = nakaratSaniyesi;
       }
 
-      // Müziği önce 0 sesle başlatıp kademeli olarak %30'a çıkarma (Fade-In efekti)
       audio.volume = 0;
       volumeBar.value = 0;
       
@@ -771,14 +806,14 @@
         let currentVol = 0;
         let fadeInterval = setInterval(() => {
           if (currentVol < targetVolume) {
-            currentVol += 0.01; // Her adımda sesi çok az artır
+            currentVol += 0.01;
             if (currentVol > targetVolume) currentVol = targetVolume;
             audio.volume = currentVol;
             volumeBar.value = Math.round(currentVol * 100);
           } else {
             clearInterval(fadeInterval);
           }
-        }, 100); // Her 100 milisaniyede bir sesi yükseltir
+        }, 80);
 
       }).catch(error => {
         console.log("Oynatma hatası:", error);
@@ -815,10 +850,9 @@
       }
     });
 
-    // Ses Seviyesi Kontrolü
     volumeBar.addEventListener('input', () => {
       audio.volume = volumeBar.value / 100;
-      targetVolume = audio.volume; // Kullanıcı sesle oynarsa hedefi güncelle
+      targetVolume = audio.volume;
       if (audio.volume === 0) {
         volumeIcon.className = "fas fa-volume-xmark";
       } else if (audio.volume < 0.5) {
