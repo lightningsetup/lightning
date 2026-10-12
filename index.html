@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mevsimlover</title>
+  <title>Lightning Mcqueen | Setup Showcase</title>
   
   <!-- SEKME İKONU (FAVICON - SAKURA ÇİÇEĞİ) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23ff69b4' d='M12 2C13 6 16 8 20 9C16 10 13 12 12 16C11 12 8 10 4 9C8 8 11 6 12 2Z'/><circle cx='12' cy='9' r='2' fill='%23ffffff'/></svg>">
@@ -19,7 +19,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     
-    /* --- ÖZEL SAKURA FARE İMLECİ (KODA GÖMÜLÜ SVG) --- */
+    /* --- ÖZEL SAKURA FARE İMLECİ --- */
     *, body, button, a, input, [role="button"] {
       cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23ff69b4' stroke='%23ffffff' stroke-width='1.5' d='M12 2C13 6 16 8 20 9C16 10 13 12 12 16C11 12 8 10 4 9C8 8 11 6 12 2Z'/><circle cx='12' cy='9' r='2' fill='%23ffffff'/></svg>") 12 12, auto !important;
     }
@@ -42,7 +42,7 @@
       overflow-x: hidden;
     }
 
-    /* --- SAKURA YAPRAKLARI EFEKTİ (MOUSE TRAIL) --- */
+    /* --- SAKURA YAPRAKLARI EFEKTİ --- */
     .sakura-leaf {
       position: fixed;
       pointer-events: none;
@@ -66,7 +66,7 @@
       }
     }
 
-    /* --- BULUTLANMA & GEÇİŞ EFEKTLİ GİRİŞ EKRANI (INTRO OVERLAY) --- */
+    /* --- GİRİŞ EKRANI (INTRO OVERLAY) --- */
     .intro-overlay {
       position: fixed;
       top: 0;
@@ -106,17 +106,8 @@
       animation: floatGlow 8s infinite alternate ease-in-out;
       z-index: 1;
     }
-    .bg-glow-1 {
-      background: #ff69b4;
-      top: 10%;
-      left: 20%;
-    }
-    .bg-glow-2 {
-      background: #8b5cf6;
-      bottom: 10%;
-      right: 20%;
-      animation-delay: -4s;
-    }
+    .bg-glow-1 { background: #ff69b4; top: 10%; left: 20%; }
+    .bg-glow-2 { background: #8b5cf6; bottom: 10%; right: 20%; animation-delay: -4s; }
 
     @keyframes floatGlow {
       0% { transform: translateY(0) scale(1); }
@@ -209,10 +200,10 @@
       flex-direction: column;
       gap: 20px;
       z-index: 2;
-      padding-bottom: 90px; /* Müzik widget'ı mobilde altta kalmasın diye boşluk */
+      padding-bottom: 90px;
     }
 
-    /* Header & Banner Card (Glassmorphism) */
+    /* Header & Banner Card */
     .header-card {
       background: rgba(22, 22, 26, 0.82);
       backdrop-filter: blur(12px);
@@ -300,12 +291,10 @@
     }
 
     @media (max-width: 650px) {
-      .grid-2 { 
-        grid-template-columns: 1fr; 
-      }
+      .grid-2 { grid-template-columns: 1fr; }
     }
 
-    /* Lists Boxes (Glassmorphism) */
+    /* Lists Boxes */
     .list-box {
       background: rgba(22, 22, 26, 0.82);
       backdrop-filter: blur(12px);
@@ -335,14 +324,8 @@
       padding-right: 4px;
     }
 
-    .item-list::-webkit-scrollbar { 
-      width: 5px; 
-      height: 0px; 
-    }
-    .item-list::-webkit-scrollbar-thumb { 
-      background: #333; 
-      border-radius: 4px; 
-    }
+    .item-list::-webkit-scrollbar { width: 5px; }
+    .item-list::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
 
     .item-row {
       background-color: rgba(255, 255, 255, 0.05);
@@ -369,12 +352,13 @@
       justify-content: center;
       flex-shrink: 0;
       overflow: hidden;
+      padding: 4px;
     }
 
     .icon-box img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .item-text {
@@ -435,7 +419,7 @@
       padding: 10px;
     }
 
-    /* Footer Branding */
+    /* Footer */
     .footer-badge {
       text-align: center;
       margin-top: 10px;
@@ -462,7 +446,7 @@
       transform: translateY(-1px);
     }
 
-    /* --- SAĞ ALT MÜZİK ÇALAR WIDGET STİLLERİ (MOBİL VE PC UYUMLU) --- */
+    /* --- SAĞ ALT MÜZİK ÇALAR WIDGET --- */
     .music-widget {
       position: fixed;
       bottom: 15px;
@@ -483,116 +467,32 @@
     }
 
     @media (max-width: 480px) {
-      .music-widget {
-        left: 15px;
-        right: 15px;
-        width: auto;
-      }
+      .music-widget { left: 15px; right: 15px; width: auto; }
     }
 
-    .music-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .music-thumb {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      object-fit: cover;
-      background-color: #333;
-      flex-shrink: 0;
-    }
-    .music-details {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .music-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .music-artist {
-      font-size: 11.5px;
-      color: #9ca3af;
-      margin-top: 2px;
-    }
-    .music-progress-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .music-time {
-      font-size: 10px;
-      color: #9ca3af;
-      min-width: 26px;
-      text-align: center;
-    }
-    .progress-bar, .volume-bar {
-      height: 4px;
-      background-color: rgba(255,255,255,0.15);
-      border-radius: 2px;
-      outline: none;
-      appearance: none;
-    }
+    .music-info { display: flex; align-items: center; gap: 12px; }
+    .music-thumb { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; background-color: #333; flex-shrink: 0; }
+    .music-details { display: flex; flex-direction: column; overflow: hidden; }
+    .music-title { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .music-artist { font-size: 11.5px; color: #9ca3af; margin-top: 2px; }
+    .music-progress-container { display: flex; align-items: center; gap: 8px; }
+    .music-time { font-size: 10px; color: #9ca3af; min-width: 26px; text-align: center; }
+    .progress-bar, .volume-bar { height: 4px; background-color: rgba(255,255,255,0.15); border-radius: 2px; outline: none; appearance: none; }
     .progress-bar { flex: 1; }
     .volume-bar { width: 55px; }
-    .progress-bar::-webkit-slider-thumb, .volume-bar::-webkit-slider-thumb {
-      appearance: none;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ff69b4;
-    }
-    .music-controls-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-    .music-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .volume-container {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: #9ca3af;
-      font-size: 12px;
-    }
-    .ctrl-btn {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 13px;
-      transition: color 0.2s;
-    }
+    .progress-bar::-webkit-slider-thumb, .volume-bar::-webkit-slider-thumb { appearance: none; width: 10px; height: 10px; border-radius: 50%; background: #ff69b4; }
+    .music-controls-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .music-controls { display: flex; align-items: center; gap: 12px; }
+    .volume-container { display: flex; align-items: center; gap: 6px; color: #9ca3af; font-size: 12px; }
+    .ctrl-btn { background: none; border: none; color: #fff; font-size: 13px; transition: color 0.2s; }
     .ctrl-btn:hover { color: #ff69b4; }
-    .play-btn {
-      width: 32px;
-      height: 32px;
-      background-color: #fff;
-      color: #121212;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      border: none;
-      transition: transform 0.1s;
-    }
+    .play-btn { width: 32px; height: 32px; background-color: #fff; color: #121212; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; border: none; transition: transform 0.1s; }
     .play-btn:hover { transform: scale(1.05); }
   </style>
 </head>
 <body>
 
-  <!-- HAREKETLİ VE BULUTLANMA EFEKTLİ GİRİŞ EKRANI -->
+  <!-- GİRİŞ EKRANI -->
   <div id="intro-overlay" class="intro-overlay">
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
@@ -631,13 +531,13 @@
       </div>
     </header>
 
-    <!-- Ekipman ve Arka Plan Listeleri -->
+    <!-- Ekipman ve Arka Plan Listeleri (GÖRSELLER DÜZELTİLDİ) -->
     <section class="grid-2">
       <!-- Ekipmanlar -->
       <div class="list-box">
         <h3>Ekipmanlar</h3>
         <div class="item-list">
-          <a href="https://www.razer.com/gaming-keyboards/razer-blackwidow-v4-x?srsltid=AfmBOoraYmiSfv2vyhMHmAHTJCyF-TQnDVeikEQ4ZNRcTZIdLxzrNJO8" target="_blank" rel="noopener noreferrer" class="item-row">
+          <a href="https://www.razer.com/gaming-keyboards/razer-blackwidow-v4-x" target="_blank" rel="noopener noreferrer" class="item-row">
             <div class="icon-box">
               <img src="https://worp.me/_next/image?url=https%3A%2F%2Frzyo9pndd3.ufs.sh%2Ff%2FYolgqO8JPyVSlS3n30pVMWXG62Io1ZqzDlatd4eghcuHArFm&w=48&q=75" alt="Razer V4 X" loading="lazy">
             </div>
@@ -645,19 +545,22 @@
           </a>
           <a href="https://wraithesports.com/products/wraith-w75-analog-klavye-founders-edition-on-siparis?variant=49513465053377" target="_blank" rel="noopener noreferrer" class="item-row">
             <div class="icon-box">
-              <img src="https://worp.me/_next/image?url=https%3A%2F%2Ft2.gstatic.com%2FfaviconV2%3Fclient%3DSOCIAL%26type%3DFAVICON%26fallback_opts%3DTYPE%2CSIZE%2CURL%26url%3Dhttps%253A%252F%252Fwraithesports.com%252Fproducts%252Fwraith-w75-analog-klavye-founders-edition-on-siparis%253Fvariant%253D49513465053377%26size%3D96&w=64&q=75" alt="Wraith W75" loading="lazy">
+              <!-- Gerçek Klavye Görseli -->
+              <img src="https://worp.me/_next/image?url=https%3A%2F%2Frzyo9pndd3.ufs.sh%2Ff%2FYolgqO8JPyVS9LepFO0ijcWLaJQ0pPH3yKsf8dx4Otz7TlrS&w=640&q=75" alt="Wraith W75" loading="lazy">
             </div>
             <div class="item-text">Wraith W75 V2 Klavye<br>(Manyetik Switch / HE)</div>
           </a>
           <a href="https://wraithesports.com/products/atk-dragonfly-a9-wireless-mouse?variant=49856764412097" target="_blank" rel="noopener noreferrer" class="item-row">
             <div class="icon-box">
-              <img src="https://worp.me/_next/image?url=https%3A%2F%2Frzyo9pndd3.ufs.sh%2Ff%2FYolgqO8JPyVSyX835DJa1kJMerQRib53U4CZtIjg8mfvuGNq&w=48&q=75" alt="ATK Mouse" loading="lazy">
+              <!-- Gerçek Mouse Görseli -->
+              <img src="https://worp.me/_next/image?url=https%3A%2F%2Frzyo9pndd3.ufs.sh%2Ff%2FYolgqO8JPyVSivWknGQ4oDewFHB0J2kqvfOX9j8AcuE5VhCr&w=640&q=75" alt="ATK Mouse" loading="lazy">
             </div>
             <div class="item-text">ATK Dragonfly A9 Wireless Mouse</div>
           </a>
           <a href="https://www.logitechg.com/tr-tr/shop/p/g733-rgb-wireless-headset" target="_blank" rel="noopener noreferrer" class="item-row">
             <div class="icon-box">
-              <img src="https://worp.me/_next/image?url=https%3A%2F%2Frzyo9pndd3.ufs.sh%2Ff%2FYolgqO8JPyVSDAZNHF4GuNwLmfXRiGC48IVPqvex6QKah7YS&w=128&q=75" alt="G733" loading="lazy">
+              <!-- Gerçek Kulaklık Görseli -->
+              <img src="https://worp.me/_next/image?url=https%3A%2F%2Frzyo9pndd3.ufs.sh%2Ff%2FYolgqO8JPyVSeErTD31mtxa6b3k1oKCS0IWMnZRpfQy5LJD9&w=640&q=75" alt="G733" loading="lazy">
             </div>
             <div class="item-text">G733 Ultra Hafif, Kablosuz Oyun Kulaklığı</div>
           </a>
@@ -682,7 +585,8 @@
           </a>
           <a href="https://wraithesports.com/products/wraith-bidirectional-coiled-kablo?variant=48467147030721" target="_blank" rel="noopener noreferrer" class="item-row">
             <div class="icon-box">
-              <img src="https://worp.me/_next/image?url=https%3A%2F%2Ft2.gstatic.com%2FfaviconV2%3Fclient%3DSOCIAL%26type%3DFAVICON%26fallback_opts%3DTYPE%2CSIZE%2CURL%26url%3Dhttps%253A%252F%252Fwraithesports.com%252Fproducts%252Fwraith-w75-analog-klavye-founders-edition-on-siparis%253Fvariant%253D49513465053377%26size%3D96&w=64&q=75" alt="Kablo" loading="lazy">
+              <!-- Gerçek Coiled Kablo İkonu/Görseli -->
+              <img src="https://wraithesports.com/cdn/shop/files/CoiledKablo1.png?v=1708518921" alt="Kablo" loading="lazy">
             </div>
             <div class="item-text">Wraith Çift Yönlü Coiled Kablo</div>
           </a>
@@ -706,7 +610,7 @@
     <section class="grid-2">
       <a href="https://wraithesports.com/products/atk-dragonfly-a9-wireless-mouse?variant=49856764412097" target="_blank" rel="noopener noreferrer" class="product-card">
         <div class="product-details">
-          <img src="https://worp.me/_next/image?url=https%3A%2F%2Ft2.gstatic.com%2FfaviconV2%3Fclient%3DSOCIAL%26type%3DFAVICON%26fallback_opts%3DTYPE%2CSIZE%2CURL%26url%3Dhttps%253A%252F%252Fwraithesports.com%252Fproducts%252Fwraith-w75-analog-klavye-founders-edition-on-siparis%253Fvariant%253D49513465053377%26size%3D96&w=64&q=75" alt="Wraith Logo" class="brand-logo" loading="lazy">
+          <img src="https://wraithesports.com/cdn/shop/files/wraith-logo-favicon.png" alt="Wraith Logo" class="brand-logo" loading="lazy">
           <div class="product-name">ATK Dragonfly A9 Wireless Mouse</div>
           <div class="product-price">3.899 ₺</div>
         </div>
@@ -715,7 +619,7 @@
 
       <a href="https://wraithesports.com/products/wraith-w75-analog-klavye-founders-edition-on-siparis?variant=49513465053377" target="_blank" rel="noopener noreferrer" class="product-card">
         <div class="product-details">
-          <img src="https://worp.me/_next/image?url=https%3A%2F%2Ft2.gstatic.com%2FfaviconV2%3Fclient%3DSOCIAL%26type%3DFAVICON%26fallback_opts%3DTYPE%2CSIZE%2CURL%26url%3Dhttps%253A%252F%252Fwraithesports.com%252Fproducts%252Fwraith-w75-analog-klavye-founders-edition-on-siparis%253Fvariant%253D49513465053377%26size%3D96&w=64&q=75" alt="Wraith Logo" class="brand-logo" loading="lazy">
+          <img src="https://wraithesports.com/cdn/shop/files/wraith-logo-favicon.png" alt="Wraith Logo" class="brand-logo" loading="lazy">
           <div class="product-name">Wraith W75 V2 Klavye (Manyetik Switch / HE)</div>
           <div class="product-price">4.299 ₺</div>
         </div>
@@ -724,7 +628,7 @@
 
       <a href="https://wraithesports.com/products/wraith-ace-series-poron-mousepad?variant=50300528132289" target="_blank" rel="noopener noreferrer" class="product-card">
         <div class="product-details">
-          <img src="https://worp.me/_next/image?url=https%3A%2F%2Ft2.gstatic.com%2FfaviconV2%3Fclient%3DSOCIAL%26type%3DFAVICON%26fallback_opts%3DTYPE%2CSIZE%2CURL%26url%3Dhttps%253A%252F%252Fwraithesports.com%252Fproducts%252Fwraith-w75-analog-klavye-founders-edition-on-siparis%253Fvariant%253D49513465053377%26size%3D96&w=64&q=75" alt="Wraith Logo" class="brand-logo" loading="lazy">
+          <img src="https://wraithesports.com/cdn/shop/files/wraith-logo-favicon.png" alt="Wraith Logo" class="brand-logo" loading="lazy">
           <div class="product-name">Wraith Ace Series Poron Mousepad</div>
           <div class="product-price">2.099 ₺</div>
         </div>
@@ -733,7 +637,7 @@
 
       <a href="https://www.logitechg.com/tr-tr/shop/p/g733-rgb-wireless-headset" target="_blank" rel="noopener noreferrer" class="product-card">
         <div class="product-details">
-          <img src="https://worp.me/_next/image?url=https%3A%2F%2Ft2.gstatic.com%2FfaviconV2%3Fclient%3DSOCIAL%26type%3DFAVICON%26fallback_opts%3DTYPE%2CSIZE%2CURL%26url%3Dhttps%253A%252F%252Fwww.logitechg.com%252Ftr-tr%252Fshop%252Fp%252Fg733-rgb-wireless-headset%26size%3D96&w=64&q=75" alt="Logitech Logo" class="brand-logo" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Logitech_logo.svg" alt="Logitech Logo" class="brand-logo" loading="lazy">
           <div class="product-name">G733 Ultra Hafif, Kablosuz Oyun Kulaklığı</div>
           <div class="product-price">8.599 ₺</div>
         </div>
@@ -750,7 +654,7 @@
 
   </div>
 
-  <!-- SAĞ ALT MÜZİK ÇALAR WIDGET (YÜKLEDİĞİN 7.5MB'LIK DOSYA BAĞLANDI) -->
+  <!-- SAĞ ALT MÜZİK ÇALAR WIDGET -->
   <div class="music-widget">
     <audio id="audio-player" src="mp3indirdur-Zeynep-Bastik-Her-Mevsim-Yazim.mp3" preload="metadata" loop></audio>
 
@@ -775,7 +679,6 @@
         <button class="ctrl-btn" id="forward-btn" title="5 Saniye İleri"><i class="fas fa-forward-step"></i></button>
       </div>
 
-      <!-- SES KONTROLÜ -->
       <div class="volume-container">
         <i class="fas fa-volume-low" id="volume-icon"></i>
         <input type="range" id="volume-bar" class="volume-bar" value="30" min="0" max="100" step="1">
@@ -785,7 +688,6 @@
 
   <!-- SAKURA YAPRAKLARI & MÜZİK SCRİPTİ -->
   <script>
-    // --- 1. SAKURA YAPRAKLARI MOUSE TRAIL ---
     let lastLeafTime = 0;
     document.addEventListener('mousemove', (e) => {
       const now = Date.now();
@@ -798,23 +700,16 @@
     function createSakuraLeaf(x, y) {
       const leaf = document.createElement('div');
       leaf.className = 'sakura-leaf';
-      
       const driftX = (Math.random() - 0.5) * 80 + 'px';
       const driftY = (Math.random() * 50 + 40) + 'px';
-      
       leaf.style.left = (x - 7) + 'px';
       leaf.style.top = (y - 7) + 'px';
       leaf.style.setProperty('--drift-x', driftX);
       leaf.style.setProperty('--drift-y', driftY);
-
       document.body.appendChild(leaf);
-
-      setTimeout(() => {
-        leaf.remove();
-      }, 1200);
+      setTimeout(() => { leaf.remove(); }, 1200);
     }
 
-    // --- 2. MÜZİK VE FADE-IN KONTROLÜ ---
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('play-pause-btn');
     const playIcon = document.getElementById('play-icon');
@@ -828,7 +723,7 @@
     const introOverlay = document.getElementById('intro-overlay');
     const enterBtn = document.getElementById('enter-btn');
 
-    const nakaratSaniyesi = 48; // Nakarat saniyesi (48. saniye)
+    const nakaratSaniyesi = 48;
     let targetVolume = 0.3;
 
     function formatTime(seconds) {
@@ -844,17 +739,11 @@
 
     enterBtn.addEventListener('click', () => {
       introOverlay.classList.add('fade-out');
-      
-      if (audio.currentTime < 1 && nakaratSaniyesi > 0) {
-        audio.currentTime = nakaratSaniyesi;
-      }
-
+      if (audio.currentTime < 1 && nakaratSaniyesi > 0) { audio.currentTime = nakaratSaniyesi; }
       audio.volume = 0;
       volumeBar.value = 0;
-      
       audio.play().then(() => {
         playIcon.classList.replace('fa-play', 'fa-pause');
-        
         let currentVol = 0;
         let fadeInterval = setInterval(() => {
           if (currentVol < targetVolume) {
@@ -862,24 +751,15 @@
             if (currentVol > targetVolume) currentVol = targetVolume;
             audio.volume = currentVol;
             volumeBar.value = Math.round(currentVol * 100);
-          } else {
-            clearInterval(fadeInterval);
-          }
+          } else { clearInterval(fadeInterval); }
         }, 80);
-
-      }).catch(error => {
-        console.log("Oynatma hatası:", error);
-      });
+      }).catch(error => console.log("Oynatma hatası:", error));
     });
 
     playPauseBtn.addEventListener('click', () => {
       if (audio.paused) {
-        if (audio.currentTime < 1 && nakaratSaniyesi > 0) {
-          audio.currentTime = nakaratSaniyesi;
-        }
-        audio.play().catch(error => {
-          console.log("Oynatma hatası:", error);
-        });
+        if (audio.currentTime < 1 && nakaratSaniyesi > 0) { audio.currentTime = nakaratSaniyesi; }
+        audio.play().catch(error => console.log("Oynatma hatası:", error));
         playIcon.classList.replace('fa-play', 'fa-pause');
       } else {
         audio.pause();
@@ -905,22 +785,13 @@
     volumeBar.addEventListener('input', () => {
       audio.volume = volumeBar.value / 100;
       targetVolume = audio.volume;
-      if (audio.volume === 0) {
-        volumeIcon.className = "fas fa-volume-xmark";
-      } else if (audio.volume < 0.5) {
-        volumeIcon.className = "fas fa-volume-low";
-      } else {
-        volumeIcon.className = "fas fa-volume-high";
-      }
+      if (audio.volume === 0) { volumeIcon.className = "fas fa-volume-xmark"; }
+      else if (audio.volume < 0.5) { volumeIcon.className = "fas fa-volume-low"; }
+      else { volumeIcon.className = "fas fa-volume-high"; }
     });
 
-    rewindBtn.addEventListener('click', () => {
-      audio.currentTime = Math.max(0, audio.currentTime - 5);
-    });
-
-    forwardBtn.addEventListener('click', () => {
-      audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
-    });
+    rewindBtn.addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 5); });
+    forwardBtn.addEventListener('click', () => { audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); });
   </script>
 
 </body>
