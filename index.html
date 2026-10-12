@@ -539,7 +539,6 @@
 
   <!-- SAĞ ALT MÜZİK ÇALAR WIDGET -->
   <div class="music-widget">
-    <!-- Şarkı Kaynağı -->
     <audio id="audio-player" src="mp3indirdur-Zeynep-Bastik-Her-Mevsim-Yazim.mp3" preload="metadata"></audio>
 
     <div class="music-info">
@@ -587,7 +586,9 @@
 
     playPauseBtn.addEventListener('click', () => {
       if (audio.paused) {
-        audio.play();
+        audio.play().catch(error => {
+          console.log("Oynatma hatası:", error);
+        });
         playIcon.classList.replace('fa-play', 'fa-pause');
       } else {
         audio.pause();
