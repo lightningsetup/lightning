@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mevsim sever</title>
+  <title>Lightning Mcqueen | Setup Showcase</title>
   
   <!-- FontAwesome & Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -339,7 +339,7 @@
       min-width: 28px;
       text-align: center;
     }
-    .progress-bar {
+    .progress-bar, .volume-bar {
       flex: 1;
       height: 4px;
       background-color: #333;
@@ -348,7 +348,7 @@
       appearance: none;
       cursor: pointer;
     }
-    .progress-bar::-webkit-slider-thumb {
+    .progress-bar::-webkit-slider-thumb, .volume-bar::-webkit-slider-thumb {
       appearance: none;
       width: 10px;
       height: 10px;
@@ -356,17 +356,31 @@
       background: #fff;
       cursor: pointer;
     }
+    .music-controls-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2px;
+    }
     .music-controls {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
+    }
+    .volume-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #9ca3af;
+      font-size: 12px;
+      width: 90px;
     }
     .ctrl-btn {
       background: none;
       border: none;
       color: #fff;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       transition: color 0.2s;
     }
@@ -374,15 +388,15 @@
       color: #3b82f6;
     }
     .play-btn {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       background-color: #fff;
       color: #121212;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       cursor: pointer;
       border: none;
       transition: transform 0.1s;
@@ -539,14 +553,14 @@
 
   <!-- SAĞ ALT MÜZİK ÇALAR WIDGET -->
   <div class="music-widget">
-    <!-- Eklediğin ses bağlantısı -->
-    <audio id="audio-player" src="https://grieving-jade-yhztcx8u.edgeone.dev/" preload="metadata"></audio>
+    <!-- loop özelliği eklendi -->
+    <audio id="audio-player" src="https://grieving-jade-yhztcx8u.edgeone.dev/" preload="metadata" loop></audio>
 
     <div class="music-info">
       <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&q=80" alt="Album Art" class="music-thumb">
       <div class="music-details">
         <div class="music-title">Her Mevsim Yazım</div>
-        <div class="music-artist">Zeynep Bastık</div>
+        <div class="music-artist">Zeynep Bastık[cite: 1]</div>
       </div>
     </div>
 
@@ -556,10 +570,18 @@
       <span id="duration" class="music-time">0:00</span>
     </div>
 
-    <div class="music-controls">
-      <button class="ctrl-btn" id="rewind-btn" title="5 Saniye Geri"><i class="fas fa-backward-step"></i></button>
-      <button class="play-btn" id="play-pause-btn"><i class="fas fa-play" id="play-icon"></i></button>
-      <button class="ctrl-btn" id="forward-btn" title="5 Saniye İleri"><i class="fas fa-forward-step"></i></button>
+    <div class="music-controls-row">
+      <div class="music-controls">
+        <button class="ctrl-btn" id="rewind-btn" title="5 Saniye Geri"><i class="fas fa-backward-step"></i></button>
+        <button class="play-btn" id="play-pause-btn"><i class="fas fa-play" id="play-icon"></i></button>
+        <button class="ctrl-btn" id="forward-btn" title="5 Saniye İleri"><i class="fas fa-forward-step"></i></button>
+      </div>
+
+      <!-- SES KONTROLÜ (Volume Slider) -->
+      <div class="volume-container">
+        <i class="fas fa-volume-high" id="volume-icon"></i>
+        <input type="range" id="volume-bar" class="volume-bar" value="30" min="0" max="100" step="1">
+      </div>
     </div>
   </div>
 
@@ -573,6 +595,14 @@
     const durationEl = document.getElementById('duration');
     const rewindBtn = document.getElementById('rewind-btn');
     const forwardBtn = document.getElementById('forward-btn');
+    const volumeBar = document.getElementById('volume-bar');
+    const volumeIcon = document.getElementById('volume-icon');
+
+    // En popüler/en iyi kısmın saniyesini buradan değiştirebilirsin (Örn: 35 saniye)
+    const nakaratSaniyesi = 0; 
+
+    // Başlangıç ses seviyesini %30 yapma
+    audio.volume = 0.3;
 
     function formatTime(seconds) {
       if (isNaN(seconds)) return "0:00";
@@ -583,6 +613,10 @@
 
     audio.addEventListener('loadedmetadata', () => {
       durationEl.textContent = formatTime(audio.duration);
+      // Şarkı yüklendiğinde otomatik olarak en iyi/popüler kısımdan başlasın istiyorsan:
+      if(nakaratSaniyesi > 0) {
+        audio.currentTime = nakaratSaniyesi;
+      }
     });
 
     playPauseBtn.addEventListener('click', () => {
@@ -612,6 +646,18 @@
       }
     });
 
+    // Ses Açma / Kapatma (Volume Slider)
+    volumeBar.addEventListener('input', () => {
+      audio.volume = volumeBar.value / 100;
+      if (audio.volume === 0) {
+        volumeIcon.className = "fas fa-volume-xmark";
+      } else if (audio.volume < 0.5) {
+        volumeIcon.className = "fas fa-volume-low";
+      } else {
+        volumeIcon.className = "fas fa-volume-high";
+      }
+    });
+
     rewindBtn.addEventListener('click', () => {
       audio.currentTime = Math.max(0, audio.currentTime - 5);
     });
@@ -620,11 +666,7 @@
       audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
     });
 
-    audio.addEventListener('ended', () => {
-      playIcon.classList.replace('fa-pause', 'fa-play');
-      progressBar.value = 0;
-      audio.currentTime = 0;
-    });
+    // Loop açık olduğu için şarkı bittiğinde başa saracak, ikonun oynamasına gerek yok ama loop çalışmaya devam edecek.
   </script>
 
 </body>
