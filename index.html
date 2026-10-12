@@ -26,60 +26,98 @@
       position: relative;
     }
 
-    /* --- HAVALI GİRİŞ EKRANI (OVERLAY) --- */
+    /* --- HAREKETLİ VE CANLI GİRİŞ EKRANI (INTRO OVERLAY) --- */
     .intro-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #0b0b0b;
+      background-color: #080808;
       z-index: 999999;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      overflow: hidden;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
     .intro-overlay.fade-out {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
+
+    /* Arka Planda Hareketli Neon Işıklar (Ambient Glows) */
+    .bg-glow-1, .bg-glow-2 {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      animation: floatGlow 8s infinite alternate ease-in-out;
+      z-index: 1;
+    }
+    .bg-glow-1 {
+      background: #3b82f6;
+      top: 10%;
+      left: 20%;
+    }
+    .bg-glow-2 {
+      background: #8b5cf6;
+      bottom: 10%;
+      right: 20%;
+      animation-delay: -4s;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-40px) scale(1.15); }
+    }
+
     .intro-content {
+      position: relative;
+      z-index: 2;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 16px;
       padding: 20px;
-      animation: fadeInUp 0.8s ease;
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .intro-badge {
-      background-color: #1e1e1e;
-      border: 1px solid #333;
-      color: #9ca3af;
+      background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #3b82f6;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 2px;
-      padding: 6px 14px;
+      letter-spacing: 2.5px;
+      padding: 8px 16px;
       border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
     }
+
     .intro-content h1 {
-      font-size: 26px;
+      font-size: 30px;
       font-weight: 800;
       color: #fff;
       letter-spacing: -0.5px;
+      text-shadow: 0 2px 20px rgba(255,255,255,0.15);
     }
+
     .intro-content p {
-      font-size: 13.5px;
+      font-size: 14px;
       color: #9ca3af;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
+
     .enter-btn {
-      background: #ffffff;
+      background: linear-gradient(135deg, #ffffff, #e5e7eb);
       color: #121212;
       border: none;
-      padding: 12px 30px;
+      padding: 14px 34px;
       border-radius: 30px;
       font-size: 14px;
       font-weight: 700;
@@ -87,16 +125,23 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 25px rgba(255, 255, 255, 0.25);
     }
     .enter-btn:hover {
-      transform: translateY(-2px);
-      background-color: #f3f4f6;
-      box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+      background: #ffffff;
     }
+    .enter-btn i {
+      transition: transform 0.3s ease;
+    }
+    .enter-btn:hover i {
+      transform: translateX(4px);
+    }
+
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(25px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -488,12 +533,15 @@
 </head>
 <body>
 
-  <!-- HAVALI GİRİŞ EKRANI -->
+  <!-- HAREKETLİ VE CANLI GİRİŞ EKRANI -->
   <div id="intro-overlay" class="intro-overlay">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    
     <div class="intro-content">
       <div class="intro-badge">LIGHTNING SETUP</div>
       <h1>Yolculuğa Hazır mısın?</h1>
-      <p>Müzik eşliğinde setup vitrinine giriş yap</p>
+      <p>Müzik eşliğinde özel setup vitrinine adım at</p>
       <button id="enter-btn" class="enter-btn">
         <span>Devam Et</span> <i class="fas fa-arrow-right"></i>
       </button>
@@ -676,7 +724,7 @@
     </div>
   </div>
 
-  <!-- MÜZİK ÇALAR VE GİRİŞ EKRANI SCRIPTI -->
+  <!-- MÜZİK ÇALAR VE FADE-IN SCRIPTI -->
   <script>
     const audio = document.getElementById('audio-player');
     const playPauseBtn = document.getElementById('play-pause-btn');
@@ -691,10 +739,8 @@
     const introOverlay = document.getElementById('intro-overlay');
     const enterBtn = document.getElementById('enter-btn');
 
-    // Nakarat başlangıç saniyesi (48. saniye)
     const nakaratSaniyesi = 48; 
-    // %30 Başlangıç Ses Seviyesi
-    audio.volume = 0.3;
+    let targetVolume = 0.3; // Hedef ses seviyesi (%30)
 
     function formatTime(seconds) {
       if (isNaN(seconds)) return "0:00";
@@ -707,14 +753,33 @@
       durationEl.textContent = formatTime(audio.duration);
     });
 
-    // "Devam Et" butonuna basıldığında giriş ekranını kaldır ve müziği başlat
+    // "Devam Et" butonuna basıldığında: Giriş ekranını kapat ve müziği yavaşça artır (Fade-In)
     enterBtn.addEventListener('click', () => {
       introOverlay.classList.add('fade-out');
       
-      // Şarkıyı nakaratından başlat ve oynat
-      audio.currentTime = nakaratSaniyesi;
+      if (audio.currentTime < 1 && nakaratSaniyesi > 0) {
+        audio.currentTime = nakaratSaniyesi;
+      }
+
+      // Müziği önce 0 sesle başlatıp kademeli olarak %30'a çıkarma (Fade-In efekti)
+      audio.volume = 0;
+      volumeBar.value = 0;
+      
       audio.play().then(() => {
         playIcon.classList.replace('fa-play', 'fa-pause');
+        
+        let currentVol = 0;
+        let fadeInterval = setInterval(() => {
+          if (currentVol < targetVolume) {
+            currentVol += 0.01; // Her adımda sesi çok az artır
+            if (currentVol > targetVolume) currentVol = targetVolume;
+            audio.volume = currentVol;
+            volumeBar.value = Math.round(currentVol * 100);
+          } else {
+            clearInterval(fadeInterval);
+          }
+        }, 100); // Her 100 milisaniyede bir sesi yükseltir
+
       }).catch(error => {
         console.log("Oynatma hatası:", error);
       });
@@ -753,6 +818,7 @@
     // Ses Seviyesi Kontrolü
     volumeBar.addEventListener('input', () => {
       audio.volume = volumeBar.value / 100;
+      targetVolume = audio.volume; // Kullanıcı sesle oynarsa hedefi güncelle
       if (audio.volume === 0) {
         volumeIcon.className = "fas fa-volume-xmark";
       } else if (audio.volume < 0.5) {
