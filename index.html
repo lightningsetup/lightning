@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Şimşek Seni Seviyor</title>
+  <title>Lightning Mcqueen • Setup Vitrini</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       box-sizing: border-box;
@@ -16,7 +17,8 @@
       color: #ffffff;
       display: flex;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 30px 15px;
+      min-height: 100vh;
     }
     .container {
       width: 100%;
@@ -25,165 +27,314 @@
       flex-direction: column;
       gap: 20px;
     }
-    /* Header Card */
+
+    /* Header & Banner Card */
     .header-card {
       background-color: #1e1e1e;
       border-radius: 16px;
       overflow: hidden;
       border: 1px solid #2a2a2a;
     }
-    .banner {
+    .banner-container {
+      position: relative;
       width: 100%;
       height: 200px;
-      object-fit: cover;
-      background-color: #333;
+      background-color: #111;
     }
-    .profile-info {
+    .banner {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .profile-section {
       padding: 20px;
       position: relative;
-      margin-top: -50px;
+      margin-top: -45px;
+    }
+    .profile-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
     .avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
+      width: 76px;
+      height: 76px;
+      border-radius: 14px;
       border: 4px solid #1e1e1e;
       background-color: #000;
       object-fit: cover;
     }
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .action-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background-color: #262626;
+      border: 1px solid #333;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .action-btn:hover {
+      background-color: #333;
+    }
     .title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: 10px;
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 12px;
     }
     .subtitle {
-      color: #a0a0a0;
-      font-size: 14px;
-      margin-top: 4px;
+      color: #9ca3af;
+      font-size: 13.5px;
+      margin-top: 3px;
     }
+
     /* Grid Layouts */
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 650px) {
       .grid-2 { grid-template-columns: 1fr; }
     }
-    /* Lists Box */
+
+    /* Lists Boxes */
     .list-box {
       background-color: #1e1e1e;
       border-radius: 16px;
-      padding: 20px;
+      padding: 16px;
       border: 1px solid #2a2a2a;
     }
     .list-box h3 {
-      font-size: 16px;
-      margin-bottom: 15px;
+      font-size: 15px;
+      margin-bottom: 12px;
       text-align: center;
-      color: #e0e0e0;
+      color: #e5e7eb;
+      font-weight: 600;
     }
     .item-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
+      max-height: 240px;
+      overflow-y: auto;
+      padding-right: 4px;
     }
+    .item-list::-webkit-scrollbar { width: 4px; }
+    .item-list::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
     .item-row {
       background-color: #262626;
-      padding: 12px;
+      padding: 10px 12px;
       border-radius: 10px;
-      font-size: 14px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       gap: 10px;
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid transparent;
+      transition: border-color 0.2s;
     }
-    /* Product Cards */
+    .item-row:hover {
+      border-color: #444;
+    }
+
+    /* Product Cards (Worp Tarzı) */
     .product-card {
       background-color: #1e1e1e;
       border-radius: 16px;
       overflow: hidden;
       display: flex;
       border: 1px solid #2a2a2a;
-      height: 140px;
+      height: 130px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-2px);
+      border-color: #444;
     }
     .product-details {
-      padding: 15px;
+      padding: 14px;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
+    .brand-badge {
+      font-size: 11px;
+      font-weight: bold;
+      color: #a855f7;
+    }
     .product-name {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
-      line-height: 1.3;
+      line-height: 1.25;
+      color: #fff;
     }
     .product-price {
       font-size: 13px;
-      color: #888;
+      color: #9ca3af;
+      font-weight: 500;
     }
     .product-image {
-      width: 140px;
-      height: 140px;
+      width: 130px;
+      height: 130px;
       object-fit: contain;
       background-color: #ffffff;
       padding: 10px;
+    }
+
+    /* Footer Branding */
+    .footer-badge {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .footer-badge a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #1e1e1e;
+      border: 1px solid #2a2a2a;
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: #9ca3af;
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-badge a:hover {
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Profil Header -->
+    
+    <!-- Profil & Banner Kartı -->
     <div class="header-card">
-      <img src="https://via.placeholder.com/800x200" alt="Banner" class="banner">
-      <div class="profile-info">
-        <img src="https://via.placeholder.com/80" alt="Avatar" class="avatar">
-        <div class="title">Sizin Kullanıcı Adınız</div>
-        <div class="subtitle">Best Setup 2026</div>
+      <div class="banner-container">
+        <!-- Setup Görseliniz (Banner) -->
+        <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200" alt="Setup Banner" class="banner">
+      </div>
+      <div class="profile-section">
+        <div class="profile-flex">
+          <!-- Profil Avatarı -->
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200" alt="Avatar" class="avatar">
+          <div class="header-actions">
+            <a href="https://www.instagram.com/lightningsetup" target="_blank" class="action-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/lightningsetup" target="_blank" class="action-btn" title="Paylaş"><i class="fas fa-share-alt"></i></a>
+          </div>
+        </div>
+        <div class="title">Lightning Mcqueen</div>
+        <div class="subtitle">Best 4060ti setup</div>
       </div>
     </div>
 
-    <!-- Ekipman Listeleri -->
+    <!-- Ekipman ve Arka Plan Listeleri -->
     <div class="grid-2">
+      <!-- Ekipmanlar -->
       <div class="list-box">
         <h3>Ekipmanlar</h3>
         <div class="item-list">
-          <div class="item-row">⌨️ Razer BlackWidow V4 X</div>
-          <div class="item-row">⌨️ Wraith W75 V2 Klavye</div>
-          <div class="item-row">🖱️ ATK Dragonfly A9 Mouse</div>
-          <div class="item-row">🎧 G733 Wireless Kulaklık</div>
+          <a href="https://www.razer.com/gaming-keyboards/razer-blackwidow-v4-x?srsltid=AfmBOoraYmiSfv2vyhMHmAHTJCyF-TQnDVeikEQ4ZNRcTZIdLxzrNJO8" target="_blank" class="item-row">
+            ⌨️ RAZER BLACKWIDOW V4 X
+          </a>
+          <a href="https://wraithesports.com/products/wraith-w75-analog-klavye-founders-edition-on-siparis?variant=49513465053377" target="_blank" class="item-row">
+            ⌨️ Wraith W75 V2 Klavye (HE)
+          </a>
+          <a href="https://wraithesports.com/products/atk-dragonfly-a9-wireless-mouse?variant=49856764412097" target="_blank" class="item-row">
+            🖱️ ATK Dragonfly A9 Wireless Mouse
+          </a>
+          <a href="https://www.logitechg.com/tr-tr/shop/p/g733-rgb-wireless-headset" target="_blank" class="item-row">
+            🎧 G733 Ultra Hafif, Kablosuz Kulaklık
+          </a>
+          <a href="https://wraithesports.com/products/wraith-ace-series-poron-mousepad?variant=50300528132289" target="_blank" class="item-row">
+            ⬛ Wraith Ace Series Poron Mousepad
+          </a>
         </div>
       </div>
 
+      <!-- Arka Plandakiler -->
       <div class="list-box">
-        <h3>Arka Plandakiler</h3>
+        <h3>Arka plandakiler</h3>
         <div class="item-list">
-          <div class="item-row">🔌 HM Lab Z-Neo USB Hub</div>
-          <div class="item-row">🔌 Wraith Çift Yönlü Kablo</div>
-          <div class="item-row">🖥️ NB Ergonomic NB F80</div>
+          <a href="https://www.hepsiburada.com/michael-brean-ozel-tasarim-kanatli-oyuncu-masasi-160-cm-p-HBCV000068ZMII" target="_blank" class="item-row">
+            🪑 Kanatlı Oyuncu Masası (160 cm)
+          </a>
+          <a href="https://wraithesports.com/products/hm-lab-z-neo-usb-hub?variant=49844095353025" target="_blank" class="item-row">
+            🔌 HM Lab Z-Neo USB Hub
+          </a>
+          <a href="https://wraithesports.com/products/wraith-bidirectional-coiled-kablo?variant=48467147030721" target="_blank" class="item-row">
+            🔌 Wraith Çift Yönlü Coiled Kablo
+          </a>
+          <a href="https://www.northbayouturkiye.com/urun/nb-f80" target="_blank" class="item-row">
+            🖥️ NB Ergonomic NB F80 Monitör Kolu
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- Ürün Kartları -->
+    <!-- Ürün Vitrini Kartları (Görsel + Fiyat + İsim) -->
     <div class="grid-2">
-      <div class="product-card">
+      <!-- Mouse -->
+      <a href="https://wraithesports.com/products/atk-dragonfly-a9-wireless-mouse?variant=49856764412097" target="_blank" class="product-card">
         <div class="product-details">
+          <div class="brand-badge">w.</div>
           <div class="product-name">ATK Dragonfly A9 Wireless Mouse</div>
           <div class="product-price">3,899 TRY</div>
         </div>
-        <img src="https://via.placeholder.com/140" alt="Mouse" class="product-image">
-      </div>
+        <img src="https://wraithesports.com/cdn/shop/files/atk-dragonfly-a9.jpg?v=1710000000" alt="Mouse" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=300'">
+      </a>
 
-      <div class="product-card">
+      <!-- Klavye -->
+      <a href="https://wraithesports.com/products/wraith-w75-analog-klavye-founders-edition-on-siparis?variant=49513465053377" target="_blank" class="product-card">
         <div class="product-details">
-          <div class="product-name">Wraith W75 V2 Klavye</div>
+          <div class="brand-badge">w.</div>
+          <div class="product-name">Wraith W75 V2 Klavye (Manyetik Switch)</div>
           <div class="product-price">4,299 TRY</div>
         </div>
-        <img src="https://via.placeholder.com/140" alt="Klavye" class="product-image">
-      </div>
+        <img src="https://wraithesports.com/cdn/shop/files/wraith-w75-analog-klavye.jpg?v=1712000000" alt="Klavye" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=300'">
+      </a>
+
+      <!-- Mousepad -->
+      <a href="https://wraithesports.com/products/wraith-ace-series-poron-mousepad?variant=50300528132289" target="_blank" class="product-card">
+        <div class="product-details">
+          <div class="brand-badge">w.</div>
+          <div class="product-name">Wraith Ace Series Poron Mousepad</div>
+          <div class="product-price">2,099 TRY</div>
+        </div>
+        <img src="https://wraithesports.com/cdn/shop/files/wraith-ace-mousepad.jpg?v=1710000000" alt="Mousepad" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1616440347437-b1c73416efc2?w=300'">
+      </a>
+
+      <!-- Kulaklık -->
+      <a href="https://www.logitechg.com/tr-tr/shop/p/g733-rgb-wireless-headset" target="_blank" class="product-card">
+        <div class="product-details">
+          <div class="brand-badge" style="color: #60a5fa;">G</div>
+          <div class="product-name">G733 Ultra Hafif, Kablosuz Oyun Kulaklığı</div>
+          <div class="product-price">8,599 TRY</div>
+        </div>
+        <img src="https://resource.logitechg.com/content/dam/gaming/en/products/g733/g733-gallery-1.png" alt="Kulaklık" class="product-image" onerror="this.src='https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=300'">
+      </a>
     </div>
+
+    <!-- Alt Bilgilendirme -->
+    <div class="footer-badge">
+      <a href="https://github.com" target="_blank">
+        <i class="fab fa-github"></i> Powered by GitHub Pages
+      </a>
+    </div>
+
   </div>
 
 </body>
